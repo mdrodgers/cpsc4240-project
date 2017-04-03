@@ -5,6 +5,7 @@ import psutil
 from datetime import datetime
 import socket
 import time 
+#continually send computer stats (every 5 minutes)
 while 1:
 	#record the current time
 	currentTime= str(datetime.now()) 
@@ -22,18 +23,23 @@ while 1:
 	disk= psutil.disk_usage('/')
 	diskUsage= disk.percent
 
+	#temp localhost ip for testing
 	udpIP= "127.0.0.1"
-	udpPort= 5005
+	udpPort= 8008
+	#set up the tcp socket and attempt to connect
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect((udpIP, udpPort))
+	#concat message with | as the delimiter
 	message= str(currentTime) + "|" + str(userPostition) + "|" +str(cpuUsage) + "|" + str(memoryUsage) + "|" +str(diskUsage)
+	#encode the bytes and send
 	sock.send(message.encode())
 
+	#print the data we sent
 	print(currentTime)
 	print(userPostition)
 	print(cpuUsage)
 	print(memoryUsage)
 	print(diskUsage)
 
-	time.sleep(5)
-	
+	#sleep for 5 minutes
+	time.sleep(300)
