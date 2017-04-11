@@ -1,26 +1,10 @@
-/*window.onload = function() {
-   var chart = new CanvasJS.Chart("chartContainer", {
-      title:{
-         text:"Chart Title"
-      },
-      data:[
-         {
-            type: "column",
-            dataPoints: [
-               { label: "a", y: 10}
-               { label: "b", y: 12}
-               { label: "c", y: 5}
-               { label: "d", y: 20}
-               { label: "e", y: 23}
-            ]
-         }
-      ]
-   });
-   chart.render();
-}*/
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
 
 window.onload = function () {
-
    var chart = new CanvasJS.Chart("chartContainer", {
       title:{
          text: "My First Chart in CanvasJS"              
@@ -41,3 +25,9 @@ window.onload = function () {
    });
    chart.render();
 }
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>
