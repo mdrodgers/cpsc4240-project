@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import socket
 import mysql.connector
+from datetime import date
 
 #temp localhost ip for testing
 udpIP = "127.0.0.1"
@@ -35,12 +36,15 @@ while 1:
 		print("Disk Usage: ", diskUsage, "%")
 
 		#this is where we will insert the data into our database
-		db = mysql.connector.connect(user="cpsc424", db="statsdb")
+		db = mysql.connector.connect(user="root", password="password", db="statsdb")
 		cur= db.cursor()
 
-		addData= ("INSERT INTO stats " "(currentTime, userPosition, cpuUsage, memoryUsage, diskUsage) "
-				   "VALUES (%(currentTime)s, %(userPosition)s, %(cpuUsage)s, %(memoryUsage)s, %(diskUsage)s)")
-		cur.execute(addData)
+		addData= ("INSERT INTO stats " "(time, geolocation, cpu, memory, disk) "
+				   "VALUES (%s, %s, %s, %s, %s)")
+
+		currentValues= (currentTime, userPosition, float(cpuUsage), float(memoryUsage), float(diskUsage))
+
+		cur.execute(addData, currentValues)
 		db.commit()
 		cur.close()
 	conn.close()
