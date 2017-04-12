@@ -6,9 +6,9 @@ var port = 8080;
 
 var connection = mysql.createConnection({
    host: 'localhost',
-   user: 'user??',
-   password: 'password??',
-   database: 'database??'
+   user: 'root',
+   password: 'password',
+   database: 'statsdb'
 });
 connection.connect(function(err) {
    if(!err) {
@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/data', function(req, res) {
-   connection.query("query string", function(err, rows, fields) {
+   connection.query("SELECT * FROM stats", function(err, rows, fields) {
       connection.end();
       if(!err) {
          res.json(rows);
