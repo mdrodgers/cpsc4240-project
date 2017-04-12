@@ -30,7 +30,7 @@ app.get('/', function(req, res) {
 
 app.get('/api/data', function(req, res) {
    connection.query("SELECT * FROM stats", function(err, rows, fields) {
-      connection.end();
+      //connection.end();
       if(!err) {
          res.json(rows);
       } else {
