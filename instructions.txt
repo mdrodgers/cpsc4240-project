@@ -11,7 +11,7 @@ mysql -u root -p
 
 CREATE DATABASE statsdb;
 USE statsdb;
-CREATE TABLE stats(time DATETIME, geolocation VARCHAR(30), cpu FLOAT(10), memory FLOAT(10), disk FLOAT(10));
+CREATE TABLE stats(id INT, ip VARCHAR(15), time DATETIME, geolocation VARCHAR(30), cpu FLOAT(10), memory FLOAT(10), disk FLOAT(10));
 
 Then run monitor.py and monitorServer.py to create data.
 

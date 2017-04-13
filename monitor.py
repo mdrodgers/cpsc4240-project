@@ -29,8 +29,9 @@ while 1:
 	#set up the tcp socket and attempt to connect
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect((udpIP, udpPort))
+	id=sock.recv(1024).decode()
 	#concat message with | as the delimiter
-	message= str(currentTime) + "|" + str(userPostition) + "|" +str(cpuUsage) + "|" + str(memoryUsage) + "|" +str(diskUsage)
+	message= str(id) + "|" + str(currentTime) + "|" + str(userPostition) + "|" +str(cpuUsage) + "|" + str(memoryUsage) + "|" +str(diskUsage)
 	#encode the bytes and send
 	sock.send(message.encode())
 
@@ -42,4 +43,4 @@ while 1:
 	print(diskUsage)
 
 	#sleep for 5 minutes
-	time.sleep(300)
+	time.sleep(15)
