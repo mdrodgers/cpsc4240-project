@@ -5,7 +5,10 @@ import psutil
 from datetime import datetime
 import socket
 import time 
-#continually send computer stats (every 5 minutes)
+
+id=0
+
+#continually send computer stats (every 15 seconds)
 while 1:
 	#record the current time
 	currentTime= str(datetime.now()) 
@@ -29,7 +32,9 @@ while 1:
 	#set up the tcp socket and attempt to connect
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect((udpIP, udpPort))
-	id=sock.recv(1024).decode()
+	newId=sock.recv(1024).decode()
+	if id == 0:
+		id=newId
 	#concat message with | as the delimiter
 	message= str(id) + "|" + str(currentTime) + "|" + str(userPostition) + "|" +str(cpuUsage) + "|" + str(memoryUsage) + "|" +str(diskUsage)
 	#encode the bytes and send
