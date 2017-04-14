@@ -18,28 +18,17 @@ while 1:
 	print("New connection from ", addr)
 	db = mysql.connector.connect(user="root", password="password", db="statsdb")
 	cur= db.cursor(buffered=True)
+	
+	#find the largest ID so far, set to 1 larger
 	query= ("SELECT MAX(id),ip FROM stats")
 	cur.execute(query)
 	row=cur.fetchone()
 	if row != None:
 		id=row[0]+1
-		
-	# #check to see if any sessions have started from this IP, if so use the associated ID
-	# query= ("SELECT id,ip FROM stats WHERE ip =\'" +  addr[0] + "\'")
-	# cur.execute(query)
-	# row=cur.fetchone()
-	# if row != None:
-		
-	# #if there is not an ID for this IP, find the largest ID so far, set to 1 larger
-	# else:
-	# 	query= ("SELECT MAX(id),ip FROM stats")
-	# 	cur.execute(query)
-	# 	row=cur.fetchone()
-	# 	if row != None:
-	# 		id=row[0]+1
 	
 	id=str(id)
 	conn.send(id.decode())
+
 	while 1:
 		#recv and decode the data 
 		data = conn.recv(1024).decode()
