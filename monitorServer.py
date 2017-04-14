@@ -2,10 +2,14 @@
 import socket
 import mysql.connector
 from datetime import date
+import sys
 
 #temp localhost ip for testing
+if len(sys.argv) < 2:
+	print("Usage ./monitorServer port")
+	quit()
 udpIP = "127.0.0.1"
-udpPort = 8008
+udpPort = int(sys.argv[1])
 #set up the tcp socket and bind, wait for incoming connections
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #TCP socket
 sock.bind((udpIP, udpPort))

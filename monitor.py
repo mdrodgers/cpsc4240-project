@@ -5,9 +5,14 @@ import psutil
 from datetime import datetime
 import socket
 import time 
-
+import sys
 id=0
 
+if len(sys.argv) < 3:
+	print("Usage ./monitor IP port")
+	quit()
+tcpIP=sys.argv[1]
+tcpPort=int(sys.argv[2])
 #continually send computer stats (every 15 seconds)
 while 1:
 	#record the current time
@@ -26,12 +31,9 @@ while 1:
 	disk= psutil.disk_usage('/')
 	diskUsage= disk.percent
 
-	#temp localhost ip for testing
-	udpIP= "127.0.0.1"
-	udpPort= 8008
 	#set up the tcp socket and attempt to connect
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	sock.connect((udpIP, udpPort))
+	sock.connect((tcpIP, tcpPort))
 	newId=sock.recv(1024).decode()
 	if id == 0:
 		id=newId
